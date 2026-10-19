@@ -11,16 +11,24 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Domain
 
-The domain is registered through Namecheap. DNS currently points at Namecheap (`104.219.250.37`) and a second address (`2.59.170.20`), using these nameservers:
+`dailyideaslab.com` and `www.dailyideaslab.com` are already added to the Vercel project. Public DNS still uses:
 
 - `ns1.lander.d.parity.domains`
 - `ns2.lander.d.parity.domains`
 
-Point the domain at Vercel from whichever panel actually edits that zone (Namecheap → Domain List → Advanced DNS, or cPanel → Zone Editor). Leave mail records alone.
+Those nameservers answer with `104.219.250.37` and `2.59.170.20`. There are no MX or TXT records on the domain right now.
+
+In Namecheap, open Domain List → Manage → Nameservers, choose Custom DNS, and set:
+
+- `ns1.vercel-dns.com`
+- `ns2.vercel-dns.com`
+
+If you would rather keep DNS at Namecheap, switch the nameservers to Namecheap BasicDNS first, then in Advanced DNS remove the old A records for `@` and add:
 
 | Type | Host | Value |
 | --- | --- | --- |
-| A | `@` | `76.76.21.21` |
-| CNAME | `www` | `cname.vercel-dns.com` |
+| A | `@` | `216.198.79.1` |
+| A | `@` | `64.29.17.1` |
+| CNAME | `www` | `41a51887e93d54f1.vercel-dns-017.com` |
 
-Remove the old A records for `@` when you add the Vercel one. Do not delete MX, TXT, or mail CNAMEs if the domain sends email. After the records save, add `dailyideaslab.com` and `www.dailyideaslab.com` to the Vercel project.
+cPanel’s Zone Editor only applies while the domain’s nameservers point at that hosting account. They do not, today.
